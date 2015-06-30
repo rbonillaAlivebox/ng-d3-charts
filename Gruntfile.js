@@ -113,7 +113,7 @@ module.exports = function ( grunt ) {
                 }
             },
             distdebug: {
-                src: ['app/typescript/**/*.ts'],
+                src: ['app/typescript/components/*.ts'],
                 dest: 'dist/ng-d3-chart-debug.js',
                 options: {
                     module: 'amd', //or commonjs
@@ -124,7 +124,7 @@ module.exports = function ( grunt ) {
                 }
             },
             dist: {
-                src: ['app/typescript/**/*.ts'],
+                src: ['app/typescript/components/*.ts'],
                 dest: 'dist/ng-d3-chart.js',
                 options: {
                     module: 'amd', //or commonjs
