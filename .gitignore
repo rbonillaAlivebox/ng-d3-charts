@@ -1,6 +1,10 @@
 line-chart.sublime-workspace
 line-chart.sublime-project
 
-bower_components/
+app/vendor/
 node_modules/
-coverage/
+typings/
+
+.tmp
+.idea/
+npm-debug.log

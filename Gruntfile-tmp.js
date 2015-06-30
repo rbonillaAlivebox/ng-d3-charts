@@ -88,7 +88,7 @@ module.exports = function ( grunt ) {
         concat: {
             utils: {
                 src: ['app/typescript/components/utils/*.ts'],
-                dest: 'app/typescript/components/utils.ts',
+                dest: '.tmp/utils.ts',
                 options: {
                     banner: grunt.file.read('app/typescript/components/utils/utils.ts.prefix'),
                     footer: grunt.file.read('app/typescript/components/utils/utils.ts.suffix'),
@@ -97,13 +97,17 @@ module.exports = function ( grunt ) {
                         return '// ' + filepath + '\n' + src + '\n// ----\n';
                     }
                 }
+            },
+            build: {
+                src: ['app/typescript/components/line-chart.ts', '.tmp/utils.ts'],
+                dest: 'build/line-chart.ts'
             }
         },
 
         typescript: {
             base: {
-                src: ['app/typescript/components/*.ts'],
-                dest: 'app/js/',
+                src: ['build/*.ts'],
+                dest: 'build/',
                 options: {
                     module: 'amd', //or commonjs
                     target: 'es5', //or es3
