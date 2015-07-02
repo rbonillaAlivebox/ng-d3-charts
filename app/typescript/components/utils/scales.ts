@@ -1,6 +1,6 @@
-//var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+        //var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-//({
+        //({
         createAxes: function(svg, dimensions, axesOptions) {
             var createY2Axis, height, width, x, xAxis, y, y2, y2Axis, yAxis;
             createY2Axis = axesOptions.y2 != null;
@@ -117,7 +117,9 @@
             axis = svg.selectAll(".x.axis").call(scales.xAxis);
 
             if (options.axes.x.ticksRotate != null) {
-                axis.selectAll(".tick>text").attr("dy", null).attr("transform", "translate(0,5) rotate(" + options.axes.x.ticksRotate + " 0,6)").style("text-anchor", options.axes.x.ticksRotate >= 0 ? "start" : "end");
+                axis.selectAll(".tick>text").attr("dy", null)
+                    .attr("transform", "translate(0,5) rotate(" + options.axes.x.ticksRotate + " 0,6)")
+                    .style("text-anchor", options.axes.x.ticksRotate >= 0 ? "start" : "end");
             }
 
             if ((series.filter((s) => s.axis === "y" && s.visible !== false)).length > 0) {
@@ -126,7 +128,8 @@
                 axis = svg.selectAll(".y.axis").call(scales.yAxis);
 
                 if (options.axes.y.ticksRotate != null) {
-                    axis.selectAll(".tick>text").attr("transform", "rotate(" + options.axes.y.ticksRotate + " -6,0)").style("text-anchor", "end");
+                    axis.selectAll(".tick>text").attr("transform", "rotate(" + options.axes.y.ticksRotate + " -6,0)")
+                        .style("text-anchor", "end");
                 }
             }
 
@@ -136,7 +139,8 @@
                 axis = svg.selectAll(".y2.axis").call(scales.y2Axis);
 
                 if (options.axes.y2.ticksRotate != null) {
-                    return axis.selectAll(".tick>text").attr("transform", "rotate(" + options.axes.y2.ticksRotate + " 6,0)").style("text-anchor", "start");
+                    return axis.selectAll(".tick>text").attr("transform", "rotate(" + options.axes.y2.ticksRotate + " 6,0)")
+                        .style("text-anchor", "start");
                 }
             }
         },
@@ -153,7 +157,8 @@
 
             mySeries = series.filter((s) => s.axis === key && s.visible !== false);
 
-            domain = this.yExtent(series.filter((s) => s.axis === key && s.visible !== false), data, options.stacks.filter((stack) => stack.axis === key));
+            domain = this.yExtent(series.filter((s) => s.axis === key && s.visible !== false), data,
+                options.stacks.filter((stack) => stack.axis === key));
             if (o.type === "log") {
                 domain[0] = domain[0] === 0 ? 0.001 : domain[0];
             }
@@ -272,4 +277,4 @@
         },
 
         haveSecondYAxis: (series) => !series.every((s) => s.axis !== "y2"),
-//});
+        //});

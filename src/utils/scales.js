@@ -1,7 +1,10 @@
-var __indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) {
-    if (i in this && this[i] === item)
-        return i;
-} return -1; };
+var __indexOf = [].indexOf || function (item) {
+    for (var i = 0, l = this.length; i < l; i++) {
+        if (i in this && this[i] === item)
+            return i;
+    }
+    return -1;
+};
 ({
     createAxes: function (svg, dimensions, axesOptions) {
         var createY2Axis, height, width, x, xAxis, y, y2, y2Axis, yAxis;
@@ -234,3 +237,4 @@ var __indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length;
     },
     haveSecondYAxis: function (series) { return !series.every(function (s) { return s.axis !== "y2"; }); }
 });
+//# sourceMappingURL=scales.js.map

@@ -1,4 +1,4 @@
-//({
+        //({
         getTooltipHandlers: function(options) {
             var object:any;
             if (options.tooltip.mode === "scrubber") {
@@ -117,7 +117,9 @@
             h = 18;
             p = 5;  // Size of the 'arrow' that points towards the axis
 
-            return "m-" + w / 2 + " " + p + " " + "l0 " + h + " " + "l" + w + " 0 " + "l0 " + "" + (-h) + "l" + (-w / 2 + p) + " 0 " + "l" + (-p) + " -" + h / 4 + " " + "l" + (-p) + " " + h / 4 + " " + "l" + (-w / 2 + p) + " 0z";
+            return "m-" + w / 2 + " " + p + " " + "l0 " + h + " " + "l" + w + " 0 " + "l0 " + "" + (-h) + "l" +
+                (-w / 2 + p) + " 0 " + "l" + (-p) + " -" + h / 4 + " " + "l" + (-p) + " " + h / 4 + " " + "l" +
+                (-w / 2 + p) + " 0z";
         },
 
         updateYTooltip: function(svg, _arg, yAxisOptions) {
@@ -178,7 +180,8 @@
             h = 18;
             p = 5;  // Size of the 'arrow' that points towards the axis
 
-            return "m0 0" + "l" + (-p) + " " + (-p) + " " + "l0 " + (-h / 2 + p) + " " + "l" + (-w) + " 0 " + "l0 " + h + " " + "l" + w + " 0 " + "l0 " + (-h / 2 + p) + "l" + (-p) + " " + p + "z";
+            return "m0 0" + "l" + (-p) + " " + (-p) + " " + "l0 " + (-h / 2 + p) + " " + "l" + (-w) + " 0 " + "l0 " +
+                h + " " + "l" + w + " 0 " + "l0 " + (-h / 2 + p) + "l" + (-p) + " " + p + "z";
         },
 
         getY2TooltipPath: (w) => {
@@ -186,7 +189,8 @@
             h = 18;
             p = 5;  // Size of the 'arrow' that points towards the axis
 
-            return "m0 0" + "l" + p + " " + p + " " + "l0 " + (h / 2 - p) + " " + "l" + w + " 0 " + "l0 " + (-h) + " " + "l" + (-w) + " 0 " + "l0 " + (h / 2 - p) + " " + "l" + (-p) + " " + p + "z";
+            return "m0 0" + "l" + p + " " + p + " " + "l0 " + (h / 2 - p) + " " + "l" + w + " 0 " + "l0 " + (-h) +
+                " " + "l" + (-w) + " 0 " + "l0 " + (h / 2 - p) + " " + "l" + (-p) + " " + p + "z";
         },
 
         hideTooltips: (svg) => {

@@ -1,4 +1,4 @@
-//({
+        //({
         showScrubber: function(svg, glass, axes, data, options, dispatch, columnWidth) {
             var that;
             that = this;
@@ -167,7 +167,9 @@
 
             yOffset || (yOffset = 0);
 
-            return ["m0 0", "l" + xdir + " 0", "l0 " + (yOffset + ydir), "l" + (-xdir * (p + 1)) + " 0", "l0 " + (-h / 2 - ydir), "l" + (-xdir * w) + " 0", "l0 " + h, "l" + (xdir * w) + " 0", "l0 " + (-h / 2 - ydir), "l" + (xdir * (p - 1)) + " 0", "l0 " + (-yOffset + ydir), "l1 0", "z"].join("");
+            return ["m0 0", "l" + xdir + " 0", "l0 " + (yOffset + ydir), "l" + (-xdir * (p + 1)) + " 0", "l0 " +
+                (-h / 2 - ydir), "l" + (-xdir * w) + " 0", "l0 " + h, "l" + (xdir * w) + " 0", "l0 " + (-h / 2 - ydir),
+                "l" + (xdir * (p - 1)) + " 0", "l0 " + (-yOffset + ydir), "l1 0", "z"].join("");
         },
 
         preventOverlapping: (positions) => {
@@ -244,4 +246,4 @@
 
             return positions;
         },
-//});
+        //});

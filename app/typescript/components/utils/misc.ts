@@ -1,25 +1,29 @@
-//var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+        //var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-//({
+        //({
         getPixelCssProp: (element, propertyName) => {
             var string;
             string = $window.getComputedStyle(element, null).getPropertyValue(propertyName);
             return +string.replace(/px$/, "");
         },
 
-        getDefaultMargins: () => ({
+        getDefaultMargins: () => (
+            {
                 top: 20,
                 right: 50,
                 bottom: 60,
                 left: 50
-            }),
+            }
+        ),
 
-        getDefaultThumbnailMargins: () => ({
+        getDefaultThumbnailMargins: () => (
+            {
                 top: 1,
                 right: 1,
                 bottom: 2,
                 left: 0
-            }),
+            }
+        ),
 
         getElementDimensions: function(element, width, height) {
             var bottom, dim, left, parent, right, top;
@@ -52,7 +56,8 @@
                 r = Math.random() * 16 | 0;
                 v = c === "x" ? r : r & 0x3 | 0x8;
                 return v.toString(16);
-            }),
+            }
+        ),
 
         bootstrap: (element, id, dimensions) => {
             var defs, height, svg, width;
@@ -97,7 +102,8 @@
                 "opacity": 0
             });
 
-            scrubberGroup = glass.selectAll(".scrubberItem").data(data).enter().append("g").attr("class", (s, i) => "scrubberItem series_" + i);
+            scrubberGroup = glass.selectAll(".scrubberItem").data(data).enter().append("g")
+                .attr("class", (s, i) => "scrubberItem series_" + i);
 
             scrubberGroup.each(function(s, i) {
                 var g, g2, item;
@@ -285,7 +291,8 @@
             var widest;
             widest = "";
 
-            data.forEach((row) => series.forEach((series) => {
+            data.forEach((row) =>
+                series.forEach((series) => {
                     var v, _ref;
                     v = row[series.y];
 

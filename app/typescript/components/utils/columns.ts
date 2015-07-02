@@ -36,7 +36,15 @@
         },
 
         getMinDelta: (seriesData, key, scale, range) => {
-            d3.min(seriesData.map((series) => series.values.map((d) => scale(d[key])).filter((e) => true).reduce((prev, cur, i, arr) => {
+            d3.min(seriesData.map((series) => series.values.map((d) => scale(d[key]))
+                .filter((e) => {
+                    if(range){
+                        return e >= range[0] && e <= range[1];
+                    }else{
+                        return true;
+                    }
+                })
+                .reduce((prev, cur, i, arr) => {
                     var diff;
                     diff = i > 0 ? cur - arr[i - 1] : Number.MAX_VALUE;
                     if(diff < prev){
@@ -97,6 +105,7 @@
                 return x1(index) - keys.length * columnWidth / 2;
             };
         },
+
         drawColumns: function(svg, axes, data, columnWidth, options, handlers, dispatch) {
             var colGroup, x1;
             data = data.filter((s) => s.type === "column");
@@ -105,55 +114,60 @@
 
             data.forEach((s) => s.xOffset = x1(s) + columnWidth * .5);
 
-            colGroup = svg.select(".content").selectAll(".columnGroup").data(data).enter().append("g").attr("class", (s) => "columnGroup series_" + s.index).attr("transform", (s) => "translate(" + x1(s) + ",0)");
+            colGroup = svg.select(".content").selectAll(".columnGroup").data(data).enter()
+              .append("g").attr("class", (s) => "columnGroup series_" + s.index)
+              .attr("transform", (s) => "translate(" + x1(s) + ",0)");
 
             colGroup.each(function(series) {
-                return d3.select(this).selectAll("rect").data(series.values).enter().append("rect").style({
-                    "stroke": series.color,
-                    "fill": series.color,
-                    "stroke-opacity": (d:any) => {
-                        if (d.y === 0) {
-                            return "0";
-                        } else {
-                            return "1";
+                return d3.select(this).selectAll("rect").data(series.values).enter().append("rect")
+                    .style({
+                        "stroke": series.color,
+                        "fill": series.color,
+                        "stroke-opacity": (d:any) => {
+                            if (d.y === 0) {
+                                return "0";
+                            } else {
+                                return "1";
+                            }
+                        },
+                        "stroke-width": "1px",
+                        "fill-opacity": (d:any) => {
+                            if (d.y === 0) {
+                                return 0;
+                            } else {
+                                return 0.7;
+                            }
                         }
-                    },
-                    "stroke-width": "1px",
-                    "fill-opacity": (d:any) => {
-                        if (d.y === 0) {
-                            return 0;
-                        } else {
-                            return 0.7;
+                    })
+                    .attr({
+                        width: columnWidth,
+                        x: (d:any) => axes.xScale(d.x),
+                        height: (d:any) => {
+                            if (d.y === 0) {
+                                return axes[d.axis + "Scale"].range()[0];
+                            }
+                            return Math.abs(axes[d.axis + "Scale"](d.y0 + d.y) - axes[d.axis + "Scale"](d.y0));
+                        },
+                        y: (d:any) => {
+                            if (d.y === 0) {
+                                return 0;
+                            } else {
+                                return axes[d.axis + "Scale"](Math.max(0, d.y0 + d.y));
+                            }
                         }
-                    }
-                }).attr({
-                    width: columnWidth,
-                    x: (d:any) => axes.xScale(d.x),
-                    height: (d:any) => {
-                        if (d.y === 0) {
-                            return axes[d.axis + "Scale"].range()[0];
-                        }
-                        return Math.abs(axes[d.axis + "Scale"](d.y0 + d.y) - axes[d.axis + "Scale"](d.y0));
-                    },
-                    y: (d:any) => {
-                        if (d.y === 0) {
-                            return 0;
-                        } else {
-                            return axes[d.axis + "Scale"](Math.max(0, d.y0 + d.y));
-                        }
-                    }
-                }).on("click", (d, i) => {dispatch.click(d, i);}
-                ).on("mouseover", (d:any, i) => {
-                    dispatch.hover(d, i);
-                    return typeof handlers.onMouseOver === "function" ? handlers.onMouseOver(svg, {
-                        series: series,
-                        x: axes.xScale(d.x),
-                        y: axes[d.axis + "Scale"](d.y0 + d.y),
-                        datum: d
-                    }, options.axes) : void 0;
-                }).on("mouseout", (d) => handlers.onMouseOut(svg));
+                    })
+                    .on("click", (d, i) => {dispatch.click(d, i);})
+                    .on("mouseover", (d:any, i) => {
+                        dispatch.hover(d, i);
+                        return typeof handlers.onMouseOver === "function" ? handlers.onMouseOver(svg, {
+                            series: series,
+                            x: axes.xScale(d.x),
+                            y: axes[d.axis + "Scale"](d.y0 + d.y),
+                            datum: d
+                        }, options.axes) : void 0;
+                    })
+                    .on("mouseout", (d) => handlers.onMouseOut(svg));
             });
 
             return this;
         },
-

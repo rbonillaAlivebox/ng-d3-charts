@@ -20,7 +20,8 @@
 
             pattern.append("path").attr("d", "M60 10 l0 10 l-40 40 l-10 0 z");
 
-            return pattern.append("path").attr("d", "M60 40 l0 10 l-10 10 l -10 0 z");
+            pattern.append("path").attr("d", "M60 40 l0 10 l-10 10 l -10 0 z");
+            //return pattern.append("path").attr("d", "M60 40 l0 10 l-10 10 l -10 0 z");
         },
 
         drawArea: function(svg, scales, data, options) {
@@ -34,7 +35,9 @@
                 y2: this.createRightAreaDrawer(scales, options.lineMode, options.tension)
             };
 
-            svg.select(".content").selectAll(".areaGroup").data(areaSeries).enter().append("g").attr("class", (s) => "areaGroup " + "series_" + s.index).append("path").attr("class", "area").style("fill", (s) => {
+            svg.select(".content").selectAll(".areaGroup").data(areaSeries).enter().append("g")
+            .attr("class", (s) => "areaGroup " + "series_" + s.index).append("path").attr("class", "area")
+            .style("fill", (s) => {
                 if (s.striped !== true) {
                     return s.color;
                 }
@@ -52,11 +55,20 @@
 
         createLeftAreaDrawer: (scales, mode, tension) => {
             var area:any = d3.svg.area();
-            area.x((d) => scales.xScale(d.x).y0((d) => scales.yScale(d.y0).y1((d) => scales.yScale(d.y0 + d.y).interpolate(mode).tension(tension))))
+            area.x((d) => scales.xScale(d.x))
+                .y0((d) => scales.yScale(d.y0))
+                .y1((d) => scales.yScale(d.y0 + d.y))
+                .interpolate(mode)
+                .tension(tension);
+            return area;
         },
 
         createRightAreaDrawer: (scales, mode, tension) => {
             var area:any = d3.svg.area();
-            area.x((d) => scales.xScale(d.x).y0((d) => scales.y2Scale(d.y0).y1((d) => scales.y2Scale(d.y0 + d.y).interpolate(mode).tension(tension))))
+            area.x((d) => scales.xScale(d.x))
+                .y0((d) => scales.y2Scale(d.y0))
+                .y1((d) => scales.y2Scale(d.y0 + d.y))
+                .interpolate(mode)
+                .tension(tension);
+            return area;
         },
-

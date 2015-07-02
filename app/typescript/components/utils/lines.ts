@@ -1,4 +1,4 @@
-//var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+        //var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
         drawLines: function(svg, scales, data, options, handlers) {
             var drawers, lineGroup;
@@ -7,27 +7,31 @@
                 y2: this.createRightLineDrawer(scales, options.lineMode, options.tension)
             };
 
-            lineGroup = svg.select(".content").selectAll(".lineGroup").data(data.filter((s) => {
-                var _ref, data:any;
-                data = ["line", "area"];
-                return _ref = s.type, __indexOf.call(data.enter().append("g"), _ref) >= 0;
-            }));
-            lineGroup.style("stroke", (s) => s.color).attr("class", (s) => "lineGroup series_" + s.index).append("path").attr({
-                "class": "line",
-                d: (d) => drawers[d.axis](d.values)
-            }).style({
-                "fill": "none",
-                "stroke-width": (s) => s.thickness,
-                "stroke-dasharray": (s) => {
-                    if (s.lineMode === "dashed") {
-                        return "10,3";
+            lineGroup = svg.select(".content").selectAll(".lineGroup")
+                .data(data.filter((s) => {
+                    var _ref, data:any;
+                    data = ["line", "area"];
+                    return _ref = s.type, __indexOf.call(data, _ref) >= 0;
+                }))
+                .enter().append("g");
+            lineGroup.style("stroke", (s) => s.color).attr("class", (s) => "lineGroup series_" + s.index).append("path")
+                .attr({
+                    "class": "line",
+                    d: (d) => drawers[d.axis](d.values)
+                }).style({
+                    "fill": "none",
+                    "stroke-width": (s) => s.thickness,
+                    "stroke-dasharray": (s) => {
+                        if (s.lineMode === "dashed") {
+                            return "10,3";
+                        }
+                        return void 0;
                     }
-                    return void 0;
-                }
-            });
+                });
             if (options.tooltip.interpolate) {
                 function interpolateData(series) {
-                    var datum, error, i, interpDatum, maxXPos, maxXValue, maxYPos, maxYValue, minXPos, minXValue, minYPos, minYValue, mousePos, target, valuesData, x, xPercentage, xVal, y, yPercentage, yVal, _i, _len;
+                    var datum, error, i, interpDatum, maxXPos, maxXValue, maxYPos, maxYValue, minXPos, minXValue,
+                      minYPos, minYValue, mousePos, target, valuesData, x, xPercentage, xVal, y, yPercentage, yVal, _i, _len;
                     target = d3.select(d3.event.target);
                     try {
                         mousePos = d3.mouse(this);
@@ -91,10 +95,18 @@
 
         createLeftLineDrawer: (scales, mode, tension) => {
             var line:any = d3.svg.line();
-            line.x((d) => scales.xScale(d.x).y((d) => scales.yScale(d.y + d.y0).interpolate(mode).tension(tension)));
+            line.x((d) => {return scales.xScale(d.x)})
+                .y((d) => {return scales.yScale(d.y + d.y0)})
+                .interpolate(mode)
+                .tension(tension);
+          return line;
         },
 
         createRightLineDrawer: (scales, mode, tension) => {
             var line:any = d3.svg.line();
-            line.x((d) => scales.xScale(d.x).y((d) => scales.y2Scale(d.y + d.y0).interpolate(mode).tension(tension)));
+            line.x((d) => {return scales.xScale(d.x)})
+                .y((d) => {return scales.y2Scale(d.y + d.y0)})
+                .interpolate(mode)
+                .tension(tension);
+            return line;
         },
